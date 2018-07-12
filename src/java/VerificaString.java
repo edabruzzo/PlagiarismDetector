@@ -33,7 +33,7 @@ public class VerificaString {
     String buscaGoogleScholar = "https://scholar.google.com.br/scholar?q=";
             
     String quantidadeResultados = null; 
-    private static String query = "emmanuel d'abruzzo";
+    private static String query = "As buscas são feitas definindo uma expressão de consulta usando o metodo setQueryString() – semelhante ao que seria feito normalmente pelo site google.com – e depois invocando o método doSearch(), que retorna um objeto da classe GoogleSearchResult. Este objeto contém os resultados da busca e algumas informações adicionais, como o tempo de busca e o total estimado de resultados. Um exemplo de uso do método doSearch() pode ser visto na Listagem 1";
 
     private static String agenteGoogle = "Mozilla/5.0 (compatible; Googlebot/2.1; "
             + "+http://www.google.com/bot.html)";
@@ -111,7 +111,7 @@ public class VerificaString {
         System.out.println("Enviando request para o seguinte motor de busca..." + request);
         String agenteUsado = agente;
 
-        if (motorBuscaEscolhido.equals("G") || motorBuscaEscolhido.equals("GS") ) {
+        if (motorBuscaEscolhido.equals("G")) {
             agenteUsado = agenteGoogle;
         }
 
