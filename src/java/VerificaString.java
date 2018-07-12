@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.jsoup.Jsoup;
@@ -31,9 +33,14 @@ public class VerificaString {
     String buscaGoogle = "https://www.google.com/search?q=";
     String buscaBing = "https://www.bing.com/search?q=";
     String buscaGoogleScholar = "https://scholar.google.com.br/scholar?q=";
-            
-    String quantidadeResultados = null; 
-    private static String query = "As buscas são feitas definindo uma expressão de consulta usando o metodo setQueryString() – semelhante ao que seria feito normalmente pelo site google.com – e depois invocando o método doSearch(), que retorna um objeto da classe GoogleSearchResult. Este objeto contém os resultados da busca e algumas informações adicionais, como o tempo de busca e o total estimado de resultados. Um exemplo de uso do método doSearch() pode ser visto na Listagem 1";
+
+    String quantidadeResultados = null;
+    private static String query = "As diferentes formas de plágio praticadas por plagiários podem ser\n"
+            + "detectadas através da implementação de cada um dos métodos de detecção,\n"
+            + "citados na seção 2.1. Desta forma cada método poderia gerar um novo trabalho, ou\n"
+            + "então seria possível também desenvolver um trabalho que utilizasse várias destas\n"
+            + "técnicas. A biblioteca Lucene possui vários recursos que podem ser úteis, por\n"
+            + "exemplo, a opção de reduzir as palavras na sua raiz, a utilização";
 
     private static String agenteGoogle = "Mozilla/5.0 (compatible; Googlebot/2.1; "
             + "+http://www.google.com/bot.html)";
@@ -58,13 +65,13 @@ public class VerificaString {
     }
 
     public String getNomeDominio(String url) {
-
-        String domainName = "";
+        System.out.println("URL encontrada: ".concat(url));
+        String dominio = "";
         matcher = padraoNomeDominio.matcher(url);
         if (matcher.find()) {
-            domainName = matcher.group(0).toLowerCase().trim();
+            dominio = matcher.group(0).toLowerCase().trim();
         }
-        return domainName;
+        return dominio;
 
     }
 
@@ -77,12 +84,11 @@ public class VerificaString {
 
             request = buscaGoogle.concat(query);
             efetuarRequest(request);
-            
-          }else if (motorBuscaEscolhido.equals("GS")) {
+
+        } else if (motorBuscaEscolhido.equals("GS")) {
 
             request = buscaGoogleScholar.concat(query);
             efetuarRequest(request);
-
 
         } else if (motorBuscaEscolhido.equals("B")) {
             request = buscaBing.concat(query);
@@ -93,11 +99,11 @@ public class VerificaString {
             motorBuscaEscolhido = "G";
             request = buscaGoogle.concat(query);
             efetuarRequest(request);
-            
+
             motorBuscaEscolhido = "GS";
-            request = buscaGoogle.concat(query);
+            request = buscaGoogleScholar.concat(query);
             efetuarRequest(request);
-            
+
             motorBuscaEscolhido = "B";
             request = buscaBing.concat(query);
             efetuarRequest(request);
@@ -115,28 +121,20 @@ public class VerificaString {
             agenteUsado = agenteGoogle;
         }
 
+        Document doc = null;
         try {
-
-            // need http protocol, set this as a Google bot agent :)
-            Document doc = Jsoup
+            doc = Jsoup
                     .connect(request)
                     .userAgent(agenteUsado)
                     .timeout(5000).get();
-
-            // get all links
-            Elements links = doc.select("a[href]");
-            for (Element link : links) {
-
-                String temp = link.attr("href");
-                if (temp.startsWith("/url?q=")) {
-                    //use regex to get domain name
-                    resultado.add(getNomeDominio(temp));
-                }
-
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ex) {
+            Logger.getLogger(VerificaString.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (motorBuscaEscolhido.equals("G")) {
+            pegaLinksGoogle(doc);
+        }
+        if (motorBuscaEscolhido.equals("GS")) {
+            pegaLinksGoogleScholar(doc);
         }
 
     }
@@ -153,6 +151,46 @@ public class VerificaString {
         query = query.replace("\\\\", "");
 
         return query;
+    }
+
+    private void pegaLinksGoogle(Document doc) {
+
+        Elements links = doc.select("a[href]");
+
+        for (Element link : links) {
+
+            String href = link.attr("href");
+            if (href.startsWith("/url?q=")) {
+                //use regex to get domain name
+                if (motorBuscaEscolhido.equals("G")) {
+                    resultado.add(getNomeDominio(href));
+                } else {
+                    resultado.add(href);
+                }
+
+            }
+
+        }
+
+    }
+
+    private void pegaLinksGoogleScholar(Document doc) {
+
+        Elements h3 = doc.getElementsByClass("gs_rt");
+
+        for (Element elemento : h3) {
+
+            Elements elementos = elemento.getElementsByTag("a");
+
+            for (Element a : elementos) {
+
+                String href = a.attr("href");
+                resultado.add(href);
+
+            }
+
+        }
+
     }
 
 }
