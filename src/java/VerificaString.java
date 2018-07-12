@@ -54,8 +54,13 @@ public class VerificaString {
     public static void main(String[] args) throws Exception {
 
         VerificaString teste = new VerificaString();
+
+        System.out.println("Texto pesquisado: ");
+        System.out.println("------------------");
+        System.out.println(query);
+        System.out.println("------------------");
         String textoPesquisado = tratarQuery(query);
-        teste.getDadosGoogle(textoPesquisado);
+        teste.getDados(textoPesquisado);
 
         for (Iterator<String> it = resultado.iterator(); it.hasNext();) {
             String temp = it.next();
@@ -64,18 +69,35 @@ public class VerificaString {
         System.out.println("RESULTADOS OBTIDOS : " + resultado.size());
     }
 
-    public String getNomeDominio(String url) {
-        System.out.println("URL encontrada: ".concat(url));
+    public String extrairDominio(String url) {
+        
+        System.out.println("href completo encontrado - getNomeDominio(): ".concat(url));
         String dominio = "";
         matcher = padraoNomeDominio.matcher(url);
         if (matcher.find()) {
             dominio = matcher.group(0).toLowerCase().trim();
         }
+        System.out.println("Domínio extraído: ".concat(dominio));
+        
         return dominio;
 
     }
 
-    private void getDadosGoogle(String query) {
+    public String extrairUrlGoogle(String href) {
+
+        System.out.println("*********************");
+        System.out.println("URL encontrada: ".concat(href));
+        href = href.replace("/url?q=http", "§").replace("&sa=", "@").trim().toLowerCase();
+        href = href.substring(href.indexOf("§") + 1, href.indexOf("@"));
+        String url = "http".concat(href);
+        System.out.println("URL extraída: ".concat(url));
+        System.out.println("*********************");
+        
+        return url;
+
+    }
+
+    private void getDados(String query) {
 
         //String request = endereco.concat(query).concat("&num=").concat(quantidadeResultados);
         String request = null;
@@ -137,6 +159,10 @@ public class VerificaString {
             pegaLinksGoogleScholar(doc);
         }
 
+        if (motorBuscaEscolhido.equals("B")) {
+            pegaLinksBing(doc);
+        }
+
     }
 
     private static String tratarQuery(String query) {
@@ -163,7 +189,8 @@ public class VerificaString {
             if (href.startsWith("/url?q=")) {
                 //use regex to get domain name
                 if (motorBuscaEscolhido.equals("G")) {
-                    resultado.add(getNomeDominio(href));
+                    resultado.add(extrairDominio(href));
+                    resultado.add(extrairUrlGoogle(href));
                 } else {
                     resultado.add(href);
                 }
@@ -191,6 +218,10 @@ public class VerificaString {
 
         }
 
+    }
+
+    private void pegaLinksBing(Document doc) {
+        System.out.println("PEGAR LINK DO BING AINDA NÃO SUPORTADO");
     }
 
 }
