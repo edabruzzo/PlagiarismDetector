@@ -51,7 +51,11 @@ public class Documento {
            Logger.getLogger(Documento.class.getName()).log(Level.SEVERE, null, ex);
        }finally{ 
         if (documentoPDF != null) 
+            try{
             documentoPDF.close();
+            }catch(IOException ex){
+              Logger.getLogger(Documento.class.getName()).log(Level.SEVERE, null, ex);
+            }
        }
        return textoExtraido;
     }

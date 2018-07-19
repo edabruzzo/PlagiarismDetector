@@ -6,12 +6,12 @@
  */
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.faces.bean.ManagedBean;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -24,6 +24,7 @@ import org.jsoup.select.Elements;
  
  * @author Emmanuel D'Abruzzo
  */
+@ManagedBean
 public class BuscaWeb {
 
     private static Set<String> resultado = new HashSet<String>();
@@ -54,9 +55,8 @@ public class BuscaWeb {
         padraoNomeDominio = Pattern.compile(PADRAO_DOMINIO);
     }
 
-    public static void main(String[] args) throws Exception {
+    public void principal() throws Exception {
 
-        BuscaWeb teste = new BuscaWeb();
         Documento documento = new Documento();
         UploadDocumentoView docUploaded = new UploadDocumentoView();
         //String caminho = FacesContext.getCurrentInstance().getExternalContext().getRealPath();

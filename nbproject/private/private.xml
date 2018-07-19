@@ -5,6 +5,7 @@
         <group>
             <file>file:/C:/Users/Dell%20E5410/Documents/NetBeansProjects/PlagiarismDetector/web/index.html</file>
             <file>file:/C:/Users/Dell%20E5410/Documents/NetBeansProjects/PlagiarismDetector/src/java/BuscaWeb.java</file>
+            <file>jar:file:/C:/Users/Dell%20E5410/Documents/NetBeansProjects/PlagiarismDetector/bibliotecas_projeto/pdfbox-2.0.11-sources.jar!/org/apache/pdfbox/pdmodel/PDDocument.java</file>
             <file>file:/C:/Users/Dell%20E5410/Documents/NetBeansProjects/PlagiarismDetector/src/java/Documento.java</file>
             <file>file:/C:/Users/Dell%20E5410/Documents/NetBeansProjects/PlagiarismDetector/src/java/UploadDocumentoView.java</file>
         </group>
