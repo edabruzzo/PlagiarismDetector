@@ -19,15 +19,19 @@ import org.jsoup.select.Elements;
 
 /**
  *
+ * Referencias:
+ * https://www.programcreek.com/2012/12/how-to-make-a-web-crawler-using-java/
+ 
  * @author Emmanuel D'Abruzzo
  */
-public class VerificaString {
+public class BuscaWeb {
 
     private static Set<String> resultado = new HashSet<String>();
     private static Pattern padraoNomeDominio;
 
     private Matcher matcher;
     private static final String PADRAO_DOMINIO
+            //     = "(https?://[a-zA-Z0-9]([a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,6}";
             = "([a-zA-Z0-9]([a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,6}";
     String motorBuscaEscolhido = "";
     String buscaGoogle = "https://www.google.com/search?q=";
@@ -35,15 +39,14 @@ public class VerificaString {
     String buscaGoogleScholar = "https://scholar.google.com.br/scholar?q=";
 
     String quantidadeResultados = null;
-    private static String query = "As diferentes formas de plágio praticadas por plagiários podem ser\n"
-            + "detectadas através da implementação de cada um dos métodos de detecção,\n"
-            + "citados na seção 2.1. Desta forma cada método poderia gerar um novo trabalho, ou\n"
-            + "então seria possível também desenvolver um trabalho que utilizasse várias destas\n"
-            + "técnicas. A biblioteca Lucene possui vários recursos que podem ser úteis, por\n"
-            + "exemplo, a opção de reduzir as palavras na sua raiz, a utilização";
 
-    private static String agenteGoogle = "Mozilla/5.0 (compatible; Googlebot/2.1; "
-            + "+http://www.google.com/bot.html)";
+    private static String query;
+
+    //unico agente que devolve a URL limpa
+    private static String agenteGoogle = ""
+            + "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) "
+            + "AppleWebKit/537.36 (KHTML, like Gecko) "
+            + "Chrome/61.0.3163.100 Safari/537.36 ";
 
     private static String agente = "Mozilla/5.0";
 
@@ -53,24 +56,33 @@ public class VerificaString {
 
     public static void main(String[] args) throws Exception {
 
-        VerificaString teste = new VerificaString();
-
+        BuscaWeb teste = new BuscaWeb();
+        Documento documento = new Documento();
+        UploadDocumentoView docUploaded = new UploadDocumentoView();
+        //String caminho = FacesContext.getCurrentInstance().getExternalContext().getRealPath();
+        String caminho = System.getProperty("user.dir");
+        //String nomeArquivo = docUploaded.getFile().getFileName();
+        String nomeArquivo = "Plagio_Testes_PDF.pdf";
+        String conteudoPDF = documento.extrairTextoPDF(caminho.concat("/").concat(nomeArquivo));
         System.out.println("Texto pesquisado: ");
         System.out.println("------------------");
-        System.out.println(query);
+        System.out.println(conteudoPDF);
         System.out.println("------------------");
+        /*
         String textoPesquisado = tratarQuery(query);
         teste.getDados(textoPesquisado);
 
         for (Iterator<String> it = resultado.iterator(); it.hasNext();) {
             String temp = it.next();
             System.out.println(temp);
-        }
+            }
         System.out.println("RESULTADOS OBTIDOS : " + resultado.size());
+         */
     }
 
+    
     public String extrairDominio(String url) {
-        
+
         System.out.println("href completo encontrado - getNomeDominio(): ".concat(url));
         String dominio = "";
         matcher = padraoNomeDominio.matcher(url);
@@ -78,7 +90,7 @@ public class VerificaString {
             dominio = matcher.group(0).toLowerCase().trim();
         }
         System.out.println("Domínio extraído: ".concat(dominio));
-        
+
         return dominio;
 
     }
@@ -92,7 +104,7 @@ public class VerificaString {
         String url = "http".concat(href);
         System.out.println("URL extraída: ".concat(url));
         System.out.println("*********************");
-        
+
         return url;
 
     }
@@ -150,7 +162,7 @@ public class VerificaString {
                     .userAgent(agenteUsado)
                     .timeout(5000).get();
         } catch (IOException ex) {
-            Logger.getLogger(VerificaString.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BuscaWeb.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (motorBuscaEscolhido.equals("G")) {
             pegaLinksGoogle(doc);
@@ -221,7 +233,24 @@ public class VerificaString {
     }
 
     private void pegaLinksBing(Document doc) {
-        System.out.println("PEGAR LINK DO BING AINDA NÃO SUPORTADO");
+
+        Elements elementos = doc.getElementsByTag("cite");
+
+        for (Element link : elementos) {
+
+            System.out.println("Link Bing : ");
+//                resultado.add(link);
+
+        }
+
+    }
+
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
     }
 
 }
