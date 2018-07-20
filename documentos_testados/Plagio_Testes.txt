@@ -1,0 +1,27 @@
+
+O TRECHO ABAIXO É UM TRECHO DE UM TRABALHO PUBLICADO EM : 
+    http://www2.ib.uj.edu.pl/abc/pdf/51_1/45_54_dinc.pdf
+    
+    ESTOU USANDO COMO TESTE PARA VERIFICAR SE O PROGRAMA DEVOLVE A URL DO TRABALHO
+    ONDE O TRECHO FOI ENCONTRADO. 
+    
+    Imagine-se o cenário em que o aluno (inteligente) tente plagiar o texto abaixo
+    traduzindo o seu conteúdo para o portugues e, após, tente apresentar o conteúdo 
+    como sendo seu. Este seria o pior caso, sendo que não teríamos sequer como prever
+    a língua original do trabalho plageado (pensemos no caso em que o plagiador
+    saiba alemão, por exemplo).
+    
+    De qualquer forma, a variável query será lida de um arquivo (submetido a análise)
+
+TRECHO HIPOTETICAMENTE PLAGIADO: 
+***********************************************************************
+Micromorphological  features  related  to  the  pollen,  nutlets  and  trichomes  of Lallemantia species  growing  in Turkey were investigated mainly by scanning electron microscopy. 
+Lallemantia pollen shares morphological features with subfamily Nepetoideae (tribe Mentheae, subtribe Nepetinae) pollen. However, the fine details are char-
+acteristic  enough  to  differentiate  the  pollen  between  species.  The  exine  is  microreticulate  in  
+L.  peltata and L. iberica, and reticulate-foveolate in L. canescens. Similarly, nutlet features are similar in general, but there
+are striking differences in surface details between species. Nutlets are black and oblong-triangular with V-shaped
+areoles. The surface is verrucate in L. iberica and L. canescens, and verrucate-rugulate in L. peltata. The warts are regular and separated in L. peltata, irregular and separated in L. iberica, and irregular and separated or sometimes associated in 2 to 4 groups in 
+L. canescens. Two types of trichome, capitate and acicular, are present  on  the  stems,  leaves,  calyx  and  bracts.  The  results  suggest  that  although  the  distribution  and  micromor-
+phology of trichomes has no taxonomic value, some pollen and nutlet micromorphological characters have the
+potential to serve as phylogenetic markers at the species level in the genus Lallemantia. However, pollen characteristics show no correlation with the nutlet characteristics. 
+****************************************************************************

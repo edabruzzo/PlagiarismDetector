@@ -14,13 +14,6 @@ import org.apache.pdfbox.text.PDFTextStripper;
  */
 
 /**
-Referencias
-https://www.programcreek.com/java-api-examples/?api=org.apache.pdfbox.pdmodel.PDDocumentInformation
-Atenção o PDFBox precisa do Apache Commons Logging
-https://pdfbox.apache.org/2.0/dependencies.html
-http://mail-archives.apache.org/mod_mbox/pdfbox-users/201005.mbox/%3C201005281141.o4SBf0Iu014793@post.webmailer.de%3E
-http://commons.apache.org/proper/commons-logging/
-http://java-source.net/open-source/pdf-libraries
 * 
  * @author Dell E5410
  */

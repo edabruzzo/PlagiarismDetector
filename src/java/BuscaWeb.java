@@ -60,10 +60,14 @@ public class BuscaWeb {
         Documento documento = new Documento();
         UploadDocumentoView docUploaded = new UploadDocumentoView();
         //String caminho = FacesContext.getCurrentInstance().getExternalContext().getRealPath();
-        String caminho = System.getProperty("user.dir");
+        String caminho = System.getProperty("user.home").concat("/PlagiarismDetection").concat("/documentos_testados/");
         //String nomeArquivo = docUploaded.getFile().getFileName();
-        String nomeArquivo = "Plagio_Testes_PDF.pdf";
-        String conteudoPDF = documento.extrairTextoPDF(caminho.concat("/").concat(nomeArquivo));
+        
+        String nomeArquivo = "Haltermanpythonbook.pdf";
+        String caminhoArquivo = caminho.concat(nomeArquivo);
+        System.out.println("CAMINHO ARQUIVO TESTADO");
+        System.out.println(caminhoArquivo);
+        String conteudoPDF = documento.extrairTextoPDF(caminhoArquivo);
         System.out.println("Texto pesquisado: ");
         System.out.println("------------------");
         System.out.println(conteudoPDF);
